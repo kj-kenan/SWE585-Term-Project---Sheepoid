@@ -13,9 +13,9 @@ GameObject:
   - component: {fileID: 1532129390611017554}
   - component: {fileID: 8135049971379146693}
   - component: {fileID: 2980651462858428639}
-  - component: {fileID: 7059686387125900254}
+  - component: {fileID: 3297326153572838116}
   m_Layer: 0
-  m_Name: SuperSheep
+  m_Name: SuperSheepTemporal
   m_TagString: Sheep
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -134,7 +134,7 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.4, y: 1, z: 1}
   m_Center: {x: 0, y: 0.5, z: 0.25}
---- !u!114 &7059686387125900254
+--- !u!114 &3297326153572838116
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -143,7 +143,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 785351125107220162}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c16c8e8e851069f429ab8f6284d89a39, type: 3}
+  m_Script: {fileID: 11500000, guid: db935cc131236384aa9284fd1514d104, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 0}

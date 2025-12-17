@@ -8,6 +8,7 @@ public class SheepAgentGrid : MonoBehaviour
 
     Rigidbody rb;
     float speed;
+    public float lastCalcTime = 0f;
 
     [Header("Physics Settings")]
     [SerializeField] private float movementSmoothness = 5f;
@@ -41,7 +42,9 @@ public class SheepAgentGrid : MonoBehaviour
     {
         if (manager == null) return;
 
+        float startTime = Time.realtimeSinceStartup;
         Vector3 moveDirection = CalculateFlockingGrid();
+        lastCalcTime = (Time.realtimeSinceStartup - startTime) * 1000f; // ms
         moveDirection.y = 0;
 
         // Idle dead zone

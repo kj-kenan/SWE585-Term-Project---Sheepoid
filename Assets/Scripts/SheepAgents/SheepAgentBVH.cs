@@ -8,6 +8,7 @@ public class SheepAgentBVH : MonoBehaviour
 
     Rigidbody rb;
     float speed;
+    public float lastCalcTime = 0f;
 
     // Shared buffer to avoid allocations (max ~20 neighbors assumed)
     private Collider[] neighborBuffer = new Collider[20];
@@ -45,7 +46,9 @@ public class SheepAgentBVH : MonoBehaviour
     {
         if (manager == null) return;
 
+        float startTime = Time.realtimeSinceStartup;
         Vector3 moveDirection = CalculateFlocking();
+        lastCalcTime = (Time.realtimeSinceStartup - startTime) * 1000f; // ms
         moveDirection.y = 0;
 
         // Movement logic (same as previous version)

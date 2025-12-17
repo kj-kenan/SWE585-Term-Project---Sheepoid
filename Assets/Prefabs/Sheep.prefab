@@ -1017,7 +1017,7 @@ GameObject:
   - component: {fileID: -992011190558168127}
   m_Layer: 0
   m_Name: Sheep
-  m_TagString: Untagged
+  m_TagString: Sheep
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1121,11 +1121,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 0}
-  groundCheckDistance: 2
-  groundCheckOffset: 0.5
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 4294967295
+  movementSmoothness: 5
+  rotationSpeed: 5
+  speedMultiplier: 2
+  maxSeparationForce: 2.5
+  deadZoneRadius: 0.5
 --- !u!1 &1851020832490790648
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,11 +1,15 @@
-﻿using UnityEngine;
+using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
-public class SheepAgent : MonoBehaviour
+public class SheepAgentTemporal : MonoBehaviour
 {
     [HideInInspector] public FlockManager manager;
     Rigidbody rb;
     float speed;
+    public float lastCalcTime = 0f;
+
+    // --- NONALLOC BUFFER ---
+    private Collider[] neighborBuffer = new Collider[30];
 
     [Header("Physics Settings")]
     [SerializeField] private float movementSmoothness = 5f; //higher smoothness faster responses
@@ -31,11 +35,18 @@ public class SheepAgent : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         speed = Random.Range(manager.minSpeed, manager.maxSpeed) * speedMultiplier;
+        
+        rb.interpolation = RigidbodyInterpolation.Interpolate;
+        rb.constraints = RigidbodyConstraints.FreezeRotationX | RigidbodyConstraints.FreezeRotationZ;
     }
 
     void FixedUpdate()
     {
+        if (manager == null) return;
+
+        float startTime = Time.realtimeSinceStartup;
         Vector3 moveDirection = CalculateFlocking();
+        lastCalcTime = (Time.realtimeSinceStartup - startTime) * 1000f; // ms
         moveDirection.y = 0;
 
         // Check if we're basically at target position - create a "dead zone"
@@ -123,29 +134,43 @@ public class SheepAgent : MonoBehaviour
         Vector3 alignment = Vector3.zero;
         int groupSize = 0;
 
-        foreach (GameObject go in manager.allSheep)
+        // --- NONALLOC OPTIMIZATION ---
+        // Use Physics.OverlapSphereNonAlloc instead of looping through all sheep
+        int count = Physics.OverlapSphereNonAlloc(
+            transform.position,
+            manager.neighborDistance,
+            neighborBuffer,
+            manager.sheepLayer
+        );
+
+        for (int i = 0; i < count; i++)
         {
-            if (go != this.gameObject)
+            Collider c = neighborBuffer[i];
+            
+            // Skip self
+            if (c.gameObject == this.gameObject) continue;
+
+            Vector3 neighborPos = c.transform.position;
+            float dist = Vector3.Distance(neighborPos, transform.position);
+
+            // Cohesion - move towards group center
+            cohesion += neighborPos;
+            
+            // Alignment - match group direction
+            alignment += c.transform.forward;
+
+            // Separation - avoid crowding
+            if (dist < 2.5f) // Slightly increased separation distance
             {
-                float dist = Vector3.Distance(go.transform.position, transform.position);
-                if (dist <= manager.neighborDistance)
-                {
-                    cohesion += go.transform.position;
-                    alignment += go.transform.forward;
+                // Distance-based separation with smooth falloff
+                float separationStrength = (2.5f - dist) / 2.5f; // 0 to 1
+                Vector3 separationDir = (transform.position - neighborPos).normalized;
+                Vector3 separationForce = separationDir * separationStrength * separationStrength; // Squared for sharper falloff
 
-                    if (dist < 2.5f) // Slightly increased separation distance
-                    {
-                        // Distance-based separation with smooth falloff
-                        float separationStrength = (2.5f - dist) / 2.5f; // 0 to 1
-                        Vector3 separationDir = (transform.position - go.transform.position).normalized;
-                        Vector3 separationForce = separationDir * separationStrength * separationStrength; // Squared for sharper falloff
-
-                        separationForce = Vector3.ClampMagnitude(separationForce, maxSeparationForce);
-                        separation += separationForce;
-                    }
-                    groupSize++;
-                }
+                separationForce = Vector3.ClampMagnitude(separationForce, maxSeparationForce);
+                separation += separationForce;
             }
+            groupSize++;
         }
 
         // Only apply cohesion/alignment when NOT idle or when far from group

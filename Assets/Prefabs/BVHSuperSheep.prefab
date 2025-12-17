@@ -14,9 +14,9 @@ GameObject:
   - component: {fileID: 8135049971379146693}
   - component: {fileID: 2980651462858428639}
   - component: {fileID: -870336068650389684}
-  m_Layer: 6
+  m_Layer: 0
   m_Name: BVHSuperSheep
-  m_TagString: Untagged
+  m_TagString: Sheep
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
