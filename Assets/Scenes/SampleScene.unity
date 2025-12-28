@@ -1569,11 +1569,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 806697092}
-  - component: {fileID: 806697091}
-  - component: {fileID: 806697093}
-  - component: {fileID: 806697094}
-  - component: {fileID: 806697095}
   - component: {fileID: 806697096}
+  - component: {fileID: 806697095}
+  - component: {fileID: 806697094}
+  - component: {fileID: 806697093}
   m_Layer: 0
   m_Name: FlockManager
   m_TagString: Untagged
@@ -1581,31 +1580,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &806697091
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 806697090}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 14afdcb3b40b2f34897b388e23a08d14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  sheepPrefab: {fileID: 785351125107220162, guid: f875e4b14e3a12c4cbbafa0396486d2c,
-    type: 3}
-  sheepCount: 200
-  spawnArea: {x: 15, y: 0, z: 15}
-  minSpeed: 4
-  maxSpeed: 5
-  neighborDistance: 15
-  rotationSpeed: 5
-  leader: {fileID: 1138936601}
-  allSheep: []
-  tpsCamera: {fileID: 330585545}
-  freeCamera: {fileID: 427926042}
-  isFreeCam: 0
 --- !u!4 &806697092
 Transform:
   m_ObjectHideFlags: 0
@@ -1628,27 +1602,16 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 806697090}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55abb3551c51ac94bba7f54d340e39e2, type: 3}
+  m_Script: {fileID: 11500000, guid: d5d0e5aec94c54a4890afb6e2b1b8873, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sheepPrefab: {fileID: 785351125107220162, guid: b6899fb77bff47d498f53fadaeecc9e4,
-    type: 3}
-  initialSheepCount: 800
-  spawnArea: {x: 15, y: 0, z: 15}
-  minSpeed: 4
-  maxSpeed: 5
-  neighborDistance: 15
-  rotationSpeed: 5
-  leader: {fileID: 1138936601}
-  sheepLayer:
-    serializedVersion: 2
-    m_Bits: 64
-  tpsCamera: {fileID: 330585545}
-  freeCamera: {fileID: 427926042}
-  isFreeCam: 0
-  allSheep: []
+  algorithmName: Base
+  sheepCount: 400
+  testDuration: 23
+  warmupDuration: 3
+  showDebugUI: 1
 --- !u!114 &806697094
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1669,7 +1632,7 @@ MonoBehaviour:
   maxSpeed: 5
   neighborDistance: 15
   rotationSpeed: 5
-  gridSize: 4
+  gridSize: 1
   leader: {fileID: 1138936601}
   tpsCamera: {fileID: 330585545}
   freeCamera: {fileID: 427926042}
@@ -1682,20 +1645,19 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 806697090}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dc1f6923dd2fad14bae2a218094e1ac8, type: 3}
+  m_Script: {fileID: 11500000, guid: 55abb3551c51ac94bba7f54d340e39e2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sheepPrefab: {fileID: 785351125107220162, guid: 7f16d57c321faa64fa66a41ca4953ba1,
+  sheepPrefab: {fileID: 785351125107220162, guid: b6899fb77bff47d498f53fadaeecc9e4,
     type: 3}
-  initialSheepCount: 800
+  initialSheepCount: 400
   spawnArea: {x: 15, y: 0, z: 15}
   minSpeed: 4
   maxSpeed: 5
   neighborDistance: 15
   rotationSpeed: 5
-  updateFrequency: 0.1
   leader: {fileID: 1138936601}
   sheepLayer:
     serializedVersion: 2
@@ -1713,14 +1675,22 @@ MonoBehaviour:
   m_GameObject: {fileID: 806697090}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5d0e5aec94c54a4890afb6e2b1b8873, type: 3}
+  m_Script: {fileID: 11500000, guid: 14afdcb3b40b2f34897b388e23a08d14, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  algorithmName: Spatial Grid
-  sheepCount: 800
-  testDuration: 23
-  warmupDuration: 3
-  showDebugUI: 1
+  sheepPrefab: {fileID: 785351125107220162, guid: f875e4b14e3a12c4cbbafa0396486d2c,
+    type: 3}
+  sheepCount: 100
+  spawnArea: {x: 10, y: 0, z: 10}
+  minSpeed: 4
+  maxSpeed: 5
+  neighborDistance: 15
+  rotationSpeed: 2.5
+  leader: {fileID: 1138936601}
+  allSheep: []
+  tpsCamera: {fileID: 330585545}
+  freeCamera: {fileID: 427926042}
+  isFreeCam: 0
 --- !u!1 &832575517
 GameObject:
   m_ObjectHideFlags: 0

@@ -143,13 +143,6 @@ public class BoidPerformanceMetrics : MonoBehaviour
                 continue;
             }
 
-            var tempAgent = sheepObj.GetComponent<SheepAgentTemporal>();
-            if (tempAgent != null)
-            {
-                totalScriptsTime += tempAgent.lastCalcTime;
-                validCount++;
-                continue;
-            }
 
             var gridAgent = sheepObj.GetComponent<SheepAgentGrid>();
             if (gridAgent != null)
